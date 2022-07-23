@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok/constant.dart';
-import 'package:tiktok/view/screens/auth/login_screen.dart';
+
+import 'package:tiktok/view/screens/auth/signup_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'TikTok',
       theme: ThemeData().copyWith(scaffoldBackgroundColor: backgroundColor),
-      home: LoginScreen(),
+      home: SignUpScreen(),
     );
   }
 }
