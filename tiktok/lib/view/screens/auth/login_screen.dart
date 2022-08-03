@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok/control/auth_controller.dart';
 import 'package:tiktok/view/widgets/gitch.dart';
 
 import 'package:tiktok/view/widgets/text_input.dart';
@@ -43,7 +44,10 @@ class LoginScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                AuthController.instance
+                    .login(_emailController.text, _passwordController.text);
+              },
               child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 10),

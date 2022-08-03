@@ -1,14 +1,15 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:firebase_storage/firebase_storage.dart';
-
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok/model/user.dart';
+import 'package:tiktok/view/screens/auth/login_screen.dart';
+import 'package:tiktok/view/screens/home.dart';
 
-class AuthControler extends GetxController {
+class AuthController extends GetxController {
+  static AuthController instance = Get.find();
   File? proimg;
 
   pickImage() async {
@@ -17,9 +18,33 @@ class AuthControler extends GetxController {
     final img = File(image.path);
     this.proimg = img;
   }
+//User state persistence
 
-  // For user register
+  late Rx<User?> _user;
+  
 
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    _user = Rx<User?>(FirebaseAuth.instance
+        .currentUser); //Rx= Observalble keyword - Continuously checking variable is changing or not
+    _user.bindStream(FirebaseAuth.instance.authStateChanges());
+    ever(_user, _setInitialView);
+
+    //Rx= Observalble keyword - Continuously checking variable is changing or not
+  }
+  _setInitialView(User? user) {
+    if (user == null) {
+      Get.offAll(()=>LoginScreen());
+    } else {
+      Get.offAll(()=>HomeScreen());
+    }
+  }
+  
+
+
+//User Register
   void SignUp(
       String username, String email, String password, File? image) async {
     try {
@@ -61,5 +86,18 @@ class AuthControler extends GetxController {
     TaskSnapshot snapshot = await uploadTask;
     String imageDwonloadUrl = await snapshot.ref.getDownloadURL();
     return imageDwonloadUrl;
+  }
+
+  void login(String email, String password) async {
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+      } else {
+        Get.snackbar("Error Logging In", "Please enter user name and password");
+      }
+    } catch (e) {
+      Get.snackbar("Error Logging In", e.toString());
+    }
   }
 }
