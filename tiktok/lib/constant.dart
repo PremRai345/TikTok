@@ -11,3 +11,5 @@ getRandomColor() => [
       Colors.redAccent,
       Colors.greenAccent,
     ][Random().nextInt(3)];
+
+const pageindex = ['Home', 'Search', 'Upload Video' 'Messages', 'Profile'];
