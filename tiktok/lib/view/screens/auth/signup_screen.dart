@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok/control/auth_controller.dart';
 import 'package:tiktok/view/widgets/gitch.dart';
-
 import 'package:tiktok/view/widgets/text_input.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -9,111 +8,91 @@ class SignUpScreen extends StatelessWidget {
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _setpasswordController = new TextEditingController();
-  TextEditingController _confirmpasswordController =
-      new TextEditingController();
+  TextEditingController _confirmpasswordController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          margin: EdgeInsets.only(top: 100),
           alignment: Alignment.center,
-          margin: const EdgeInsets.only(top: 100),
-          child: Column(
+          //const - Constant - Value - String , Int  - Fix Rahega  - Use Karna
+          child : Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              GlithEffect(
-                child: const Text(" Welcome To Tik Tok",
-                    style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white)),
-              ),
-              const SizedBox(height: 25),
+              GlithEffect(child: const Text("Welcome To TikTok" ,style: TextStyle(fontWeight: FontWeight.w900 , fontSize: 30),)),
+              SizedBox(height: 25,),
               InkWell(
                 onTap: () {
-                 AuthController().pickImage();
+                  AuthController.instance.pickImage();
+
                 },
                 child: Stack(
                   children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 60,
-                      backgroundImage: NetworkImage(
-                          "https://cdn-icons.flaticon.com/png/512/4433/premium/4433850.png?token=exp=1658594347~hmac=3ee3eaa8da5b119517e7063d7aef5944"),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
+                    const CircleAvatar(backgroundImage: NetworkImage("https://st3.depositphotos.com/1767687/16607/v/450/depositphotos_166074422-stock-illustration-default-avatar-profile-icon-grey.jpg"), radius: 60,),
+                    Positioned( bottom: 0, right: 0, child: Container(
+                        padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(50)
                         ),
-                        child: Icon(
-                          Icons.camera_alt_outlined,
-                          size: 20,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                        child: Icon(Icons.edit , size: 20,color: Colors.black,)))
                   ],
                 ),
               ),
-              const SizedBox(height: 25),
+              SizedBox(height: 25,),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                margin: EdgeInsets.symmetric(horizontal: 20),
                 child: TextInputField(
-                  myIcon: Icons.email_outlined,
                   controller: _emailController,
                   myLabelText: "Email",
+                  myIcon: Icons.email,
                 ),
               ),
-              const SizedBox(height: 25),
+              SizedBox(height: 20,),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                margin: EdgeInsets.symmetric(horizontal: 20),
                 child: TextInputField(
-                  myIcon: Icons.person_outline,
-                  controller: _usernameController,
-                  myLabelText: "Username",
-                ),
-              ),
-              const SizedBox(height: 25),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: TextInputField(
-                  myIcon: Icons.lock_outlined,
                   controller: _setpasswordController,
-                  myLabelText: "New Password",
+                  myLabelText: "Set Password",
+                  myIcon: Icons.lock,
                   toHide: true,
                 ),
               ),
-              const SizedBox(height: 25),
+
+              SizedBox(height: 20,),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                margin: EdgeInsets.symmetric(horizontal: 20),
                 child: TextInputField(
-                  myIcon: Icons.lock_outlined,
                   controller: _confirmpasswordController,
                   myLabelText: "Confirm Password",
+                  myIcon: Icons.lock,
                   toHide: true,
                 ),
               ),
-              const SizedBox(height: 25),
-              ElevatedButton(
-                onPressed: () {
-                  AuthController().SignUp(
-                      _usernameController.text,
-                      _emailController.text,
-                      _setpasswordController.text,
-                      AuthController().proimg);
-                },
-                child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 10),
-                    child: const Text("Sign Up")),
+              SizedBox(height: 20,),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child: TextInputField(
+                  controller: _usernameController,
+                  myLabelText: "Username",
+                  myIcon: Icons.person,
+                ),
               ),
+              SizedBox(height: 30,),
+              ElevatedButton(onPressed: (){
+
+
+             AuthController.instance.SignUp(_usernameController.text, _emailController.text,_setpasswordController.text, AuthController.instance.proimg);
+              }, child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 50 , vertical: 10),
+
+                  child: Text("Sign Up")))
             ],
           ),
+
         ),
       ),
     );

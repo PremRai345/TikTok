@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-const backgroundColor = Colors.black;
+const backgroundColor = Colors.white;
 var buttonColor = Colors.red[400];
 const borderColor = Colors.grey;
 

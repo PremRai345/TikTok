@@ -5,8 +5,9 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:tiktok/constant.dart';
 import 'package:tiktok/control/auth_controller.dart';
+import 'package:tiktok/view/screens/auth/login_screen.dart';
 
-import 'package:tiktok/view/screens/auth/signup_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'TikTok',
       theme: ThemeData().copyWith(scaffoldBackgroundColor: backgroundColor),
-      home: SignUpScreen(),
+      home: LoginScreen(),
     );
   }
 }

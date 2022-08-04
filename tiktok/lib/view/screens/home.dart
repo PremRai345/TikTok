@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:tiktok/constant.dart';
 import 'package:tiktok/view/widgets/custom_add_icon.dart';
 
@@ -32,12 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: customAddIcon(),
-            label: '',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.search_outlined, size: 25),
             label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: customAddIcon(),
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message_outlined, size: 25),

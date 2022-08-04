@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok/model/user.dart';
@@ -12,42 +13,50 @@ class AuthController extends GetxController {
   static AuthController instance = Get.find();
   File? proimg;
 
-  pickImage() async {
+  void pickImage() async {
+    print("IMAGE PICKED SUCCESSFULLY");
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image == null) return;
-    final img = File(image.path);
+// if(image == null) return;
+
+    final img = File(image!.path);
     this.proimg = img;
   }
-//User state persistence
+
+//User State Persistence
 
   late Rx<User?> _user;
-  
+  User get user => _user.value!;
 
+// _user  - Nadi
+  // _user.bindStream - Nadi Me Color Deko
+  //ever - Aap Ho
   @override
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    _user = Rx<User?>(FirebaseAuth.instance
-        .currentUser); //Rx= Observalble keyword - Continuously checking variable is changing or not
+    _user = Rx<User?>(FirebaseAuth.instance.currentUser);
     _user.bindStream(FirebaseAuth.instance.authStateChanges());
     ever(_user, _setInitialView);
 
-    //Rx= Observalble keyword - Continuously checking variable is changing or not
+    //Rx - Observable Keyword - Continously Checking Variable Is Changing Or Not.
   }
+
   _setInitialView(User? user) {
     if (user == null) {
-      Get.offAll(()=>LoginScreen());
+      Get.offAll(() => LoginScreen());
     } else {
-      Get.offAll(()=>HomeScreen());
+      Get.offAll(() => HomeScreen());
     }
   }
-  
 
+  //User Register
 
-//User Register
   void SignUp(
       String username, String email, String password, File? image) async {
     try {
+      print("IMAGE HERE");
+      print(image.toString() == '');
+      print("IMAGE HERE");
       if (username.isNotEmpty &&
           email.isNotEmpty &&
           password.isNotEmpty &&
@@ -58,34 +67,31 @@ class AuthController extends GetxController {
 
         myUser user = myUser(
             name: username,
-            profilePhoto: downloadUrl,
             email: email,
+            profilePhoto: downloadUrl,
             uid: credential.user!.uid);
 
         await FirebaseFirestore.instance
             .collection('users')
             .doc(credential.user!.uid)
             .set(user.toJson());
-      } else {
-        Get.snackbar("Error in creating account",
-            "Please enter all the required fields");
       }
     } catch (e) {
       print(e);
-      Get.snackbar("Error is Occured", e.toString());
+      Get.snackbar("Error Occurred", e.toString());
     }
   }
 
   Future<String> _uploadProPic(File image) async {
     Reference ref = FirebaseStorage.instance
         .ref()
-        .child("profile pics")
+        .child('profilePics')
         .child(FirebaseAuth.instance.currentUser!.uid);
 
     UploadTask uploadTask = ref.putFile(image);
     TaskSnapshot snapshot = await uploadTask;
-    String imageDwonloadUrl = await snapshot.ref.getDownloadURL();
-    return imageDwonloadUrl;
+    String imageDwnUrl = await snapshot.ref.getDownloadURL();
+    return imageDwnUrl;
   }
 
   void login(String email, String password) async {
@@ -94,7 +100,7 @@ class AuthController extends GetxController {
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
       } else {
-        Get.snackbar("Error Logging In", "Please enter user name and password");
+        Get.snackbar("Error Logging In", "Please enter all the fields");
       }
     } catch (e) {
       Get.snackbar("Error Logging In", e.toString());
