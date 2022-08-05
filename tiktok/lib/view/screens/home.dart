@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Center(
-        child: Text(pageindex[pageidx]),
+        child: pageindex[pageidx],
       ),
     );
   }

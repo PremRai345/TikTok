@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:tiktok/view/screens/add_video.dart';
 
 const backgroundColor = Colors.white;
 var buttonColor = Colors.red[400];
@@ -12,4 +13,10 @@ getRandomColor() => [
       Colors.greenAccent,
     ][Random().nextInt(3)];
 
-const pageindex = ['Home', 'Search', 'Upload Video' 'Messages', 'Profile'];
+var pageindex = [
+  Text('Home'),
+  Text('Search'),
+  addVideoScreen(),
+  Text('Messages'),
+  Text("Profile")
+];

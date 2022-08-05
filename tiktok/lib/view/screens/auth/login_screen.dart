@@ -19,25 +19,25 @@ class LoginScreen extends StatelessWidget {
           children: [
             GlithEffect(
                 child: const Text(
-              "TikTok Clone",
+              "Tik Tok",
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 30),
             )),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: TextInputField(
                 controller: _emailController,
                 myLabelText: "Email",
                 myIcon: Icons.email,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: TextInputField(
                 controller: _passwordController,
                 myLabelText: "Password",
@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
                 toHide: true,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             ElevatedButton(
@@ -54,8 +54,9 @@ class LoginScreen extends StatelessWidget {
                       .login(_emailController.text, _passwordController.text);
                 },
                 child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                    child: Text("Login")))
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 10),
+                    child: const Text("Login")))
           ],
         ),
       ),

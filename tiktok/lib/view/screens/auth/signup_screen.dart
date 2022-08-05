@@ -15,7 +15,7 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(top: 100),
+          margin:const EdgeInsets.only(top: 100),
           alignment: Alignment.center,
           //const - Constant - Value - String , Int  - Fix Rahega  - Use Karna
           child : Column(
@@ -23,7 +23,7 @@ class SignUpScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GlithEffect(child: const Text("Welcome To TikTok" ,style: TextStyle(fontWeight: FontWeight.w900 , fontSize: 30),)),
-              SizedBox(height: 25,),
+             const SizedBox(height: 25,),
               InkWell(
                 onTap: () {
                   AuthController.instance.pickImage();
@@ -42,18 +42,18 @@ class SignUpScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 25,),
+             const SizedBox(height: 25,),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextInputField(
                   controller: _emailController,
                   myLabelText: "Email",
                   myIcon: Icons.email,
                 ),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                margin:const EdgeInsets.symmetric(horizontal: 20),
                 child: TextInputField(
                   controller: _setpasswordController,
                   myLabelText: "Set Password",
@@ -87,9 +87,9 @@ class SignUpScreen extends StatelessWidget {
 
              AuthController.instance.SignUp(_usernameController.text, _emailController.text,_setpasswordController.text, AuthController.instance.proimg);
               }, child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 50 , vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 50 , vertical: 10),
 
-                  child: Text("Sign Up")))
+                  child:const Text("Sign Up")))
             ],
           ),
 
