@@ -1,23 +1,37 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:get/get.dart';
 import 'package:tiktok/constant.dart';
+import 'package:tiktok/control/upload_video_controller.dart';
 import 'package:tiktok/view/widgets/text_input.dart';
 import 'package:video_player/video_player.dart';
 
-class addCaption extends StatefulWidget {
+class addCaption_Screen extends StatefulWidget {
   File videoFile;
   String videoPath;
-  addCaption({Key? key, required this.videoFile, required this.videoPath})
+
+  addCaption_Screen(
+      {Key? key, required this.videoFile, required this.videoPath})
       : super(key: key);
 
   @override
-  State<addCaption> createState() => _addCaptionState();
+  State<addCaption_Screen> createState() => _addCaption_ScreenState();
 }
 
-class _addCaptionState extends State<addCaption> {
+class _addCaption_ScreenState extends State<addCaption_Screen> {
   late VideoPlayerController videoPlayerController;
+
+  VideoUploadController videoUploadController =
+      Get.put(VideoUploadController());
   TextEditingController songNameController = new TextEditingController();
   TextEditingController captionController = new TextEditingController();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    videoPlayerController.dispose();
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -27,8 +41,8 @@ class _addCaptionState extends State<addCaption> {
     });
     videoPlayerController.initialize();
     videoPlayerController.play();
-    videoPlayerController.setVolume(0.7);
     videoPlayerController.setLooping(true);
+    videoPlayerController.setVolume(0.7);
   }
 
   @override
@@ -38,8 +52,8 @@ class _addCaptionState extends State<addCaption> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height / 1.4,
               width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 1.4,
               child: VideoPlayer(videoPlayerController),
             ),
             Container(
@@ -51,7 +65,7 @@ class _addCaptionState extends State<addCaption> {
                 children: [
                   TextInputField(
                       controller: songNameController,
-                      myIcon: Icons.music_note_sharp,
+                      myIcon: Icons.music_note,
                       myLabelText: "Song Name"),
                   const SizedBox(
                     height: 20,
@@ -64,10 +78,13 @@ class _addCaptionState extends State<addCaption> {
                     height: 10,
                   ),
                   ElevatedButton(
-                      onPressed: () {},
-                      child: Text("Upload"),
-                      style: ElevatedButton.styleFrom(primary: buttonColor),
-                      ),
+                    onPressed: () {
+                      videoUploadController.uploadVideo(songNameController.text,
+                          captionController.text, widget.videoPath);
+                    },
+                    child: Text("Upload"),
+                    style: ElevatedButton.styleFrom(primary: buttonColor),
+                  )
                 ],
               ),
             )
